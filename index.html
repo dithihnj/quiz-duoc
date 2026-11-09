@@ -23,12 +23,12 @@
     <!-- Header -->
     <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <i class="fa-solid fa-[#16a34a] fa-pills text-2xl text-emerald-600"></i>
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
+                <i class="fa-solid fa-pills text-2xl text-emerald-600"></i>
                 <h1 class="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Quiz Dược Học & Bào Chế</h1>
             </div>
             <div class="flex items-center space-x-3">
-                <span id="total-stats-badge" class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-emerald-900 dark:text-emerald-300">271 Câu hỏi</span>
+                <span id="quiz-mode-badge" class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-emerald-900 dark:text-emerald-300">Chế độ: Luyện tập</span>
                 <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -38,68 +38,4 @@
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-6xl mx-auto px-4 py-6">
-        <!-- Dashboard / Mode Selection -->
-        <div id="mode-selection" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition cursor-pointer" onclick="startPractice()">
-                <div class="flex items-center space-x-4">
-                    <div class="p-4 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-xl text-2xl">
-                        <i class="fa-solid fa-book-open"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold">Chế Độ Luyện Tập</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Xem ngay đáp án đúng/sai & giải thích từng câu.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-teal-500 transition cursor-pointer" onclick="startExam()">
-                <div class="flex items-center space-x-4">
-                    <div class="p-4 bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 rounded-xl text-2xl">
-                        <i class="fa-solid fa-stopwatch"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold">Chế Độ Thi Thử</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Tạo đề thi ngẫu nhiên có tính thời gian & chấm điểm.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls & Filters -->
-        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 mb-6 flex flex-wrap gap-4 items-center justify-between">
-            <div class="flex flex-wrap gap-3 items-center flex-1">
-                <select id="category-filter" class="bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-sm rounded-lg p-2.5 focus:ring-emerald-500 focus:border-emerald-500">
-                    <option value="ALL">Tất cả chủ đề (271 câu)</option>
-                    <option value="PHUN_MU">Thuốc Phun Mù</option>
-                    <option value="THUOC_MO">Thuốc Mỡ & Thuốc Mềm</option>
-                    <option value="THUOC_DAT">Thuốc Đặt & Thuốc Đạn</option>
-                    <option value="THUOC_BOT">Thuốc Bột & Cốm</option>
-                    <option value="NANG_THUOC">Nang Thuốc</option>
-                    <option value="VIEN_TRON">Viên Tròn / Hoàn</option>
-                    <option value="VIEN_NEN">Viên Nén & Bao Viên</option>
-                    <option value="TUONG_KY">Tương Kỵ Bào Chế</option>
-                    <option value="GK_TONG_HOP">Giữa Kỳ & Tổng Hợp</option>
-                </select>
-                <div class="relative flex-1 min-w-[200px]">
-                    <input type="text" id="search-input" placeholder="Tìm kiếm câu hỏi, từ khóa..." class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-sm rounded-lg pl-9 pr-3 py-2.5">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <button id="shuffle-btn" class="px-3 py-2 bg-slate-100 dark:bg-slate-700 text-sm font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition">
-                    <i class="fa-solid fa-shuffle mr-1"></i> Trộn câu
-                </button>
-            </div>
-        </div>
-
-        <!-- Quiz Container -->
-        <div id="quiz-container" class="space-y-6"></div>
-    </main>
-
-    <!-- Script Chứa Dữ Liệu & Logic -->
-    <script>
-        // Dữ liệu câu hỏi trắc nghiệm đã chuẩn hóa từ 2 file docx
-        const rawQuizData = [
-            // --- THUỐC PHUN MÙ ---
-            { id: 1063, cat: "PHUN_MU", q: "Chọn vật liệu dùng làm bình, van đựng thuốc phun mù có dung môi là ethanol và chất đẩy là propellant 21:", a: ["Thép", "Thép không gỉ", "Nhôm", "Thủy tinh", "Chất dẻo dùng cho y tế"], ans: 1 },
-            { id: 1064, cat: "PHUN_MU", q: "Chọn lựa bình, van và nút bấm nắp phun dùng cho thuốc phun mù chứa hoạt chất
+    <main class="max-w-6xl mx-
